@@ -1,0 +1,8 @@
+{
+  "index_name": "efficient-engineer",
+  "dimension": 1536,
+  "metric": "cosine",
+  "total_chunks": 10,
+  "embedding_model": "text-embedding-ada-002",
+  "created_at": "2026-03-05 15:33:57"
+}
