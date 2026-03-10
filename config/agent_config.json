@@ -1,0 +1,16 @@
+{
+  "created_at": "2026-03-09T17:06:47.698732",
+  "model": "gpt-4o",
+  "embedding_model": "text-embedding-3-small",
+  "index_name": "youtube-rag-mechanical-engineering",
+  "namespace": "efficient-engineer-v3",
+  "num_tools": 3,
+  "tool_names": [
+    "search_transcripts",
+    "find_videos",
+    "get_video_info"
+  ],
+  "memory_enabled": true,
+  "langsmith_project": "youtube-rag-engineering-chatbot",
+  "evaluation_success_rate": "100.0%"
+}
