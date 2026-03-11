@@ -1,0 +1,10 @@
+gradio==4.44.0
+langchain==0.2.16
+langchain-openai==0.1.23
+langchain-pinecone==0.1.3
+langgraph==0.2.16
+langsmith
+pinecone-client
+python-dotenv
+pydantic==2.8.2
+openai
