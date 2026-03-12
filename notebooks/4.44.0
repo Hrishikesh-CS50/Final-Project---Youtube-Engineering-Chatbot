@@ -1,0 +1,107 @@
+Collecting gradio
+  Downloading gradio-6.9.0-py3-none-any.whl.metadata (16 kB)
+Collecting aiofiles<25.0,>=22.0 (from gradio)
+  Downloading aiofiles-24.1.0-py3-none-any.whl.metadata (10 kB)
+Requirement already satisfied: anyio<5.0,>=3.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (4.12.1)
+Collecting brotli>=1.1.0 (from gradio)
+  Downloading brotli-1.2.0-cp312-cp312-win_amd64.whl.metadata (6.3 kB)
+Collecting fastapi<1.0,>=0.115.2 (from gradio)
+  Using cached fastapi-0.135.1-py3-none-any.whl.metadata (30 kB)
+Collecting ffmpy (from gradio)
+  Using cached ffmpy-1.0.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting gradio-client==2.3.0 (from gradio)
+  Downloading gradio_client-2.3.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting groovy~=0.1 (from gradio)
+  Downloading groovy-0.1.2-py3-none-any.whl.metadata (6.1 kB)
+Requirement already satisfied: httpx<1.0,>=0.24.1 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (0.28.1)
+Collecting huggingface-hub<2.0,>=0.33.5 (from gradio)
+  Using cached huggingface_hub-1.6.0-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: jinja2<4.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (3.1.6)
+Requirement already satisfied: markupsafe<4.0,>=2.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (3.0.3)
+Requirement already satisfied: numpy<3.0,>=1.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (1.26.4)
+Requirement already satisfied: orjson~=3.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (3.11.7)
+Requirement already satisfied: packaging in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (24.2)
+Requirement already satisfied: pandas<4.0,>=1.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (3.0.1)
+Requirement already satisfied: pillow<13.0,>=8.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (12.1.1)
+Requirement already satisfied: pydantic<=3.0,>=2.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (2.12.5)
+Collecting pydub (from gradio)
+  Using cached pydub-0.25.1-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting python-multipart>=0.0.18 (from gradio)
+  Using cached python_multipart-0.0.22-py3-none-any.whl.metadata (1.8 kB)
+Collecting pytz>=2017.2 (from gradio)
+  Downloading pytz-2026.1.post1-py2.py3-none-any.whl.metadata (22 kB)
+Requirement already satisfied: pyyaml<7.0,>=5.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (6.0.3)
+Collecting safehttpx<0.2.0,>=0.1.7 (from gradio)
+  Downloading safehttpx-0.1.7-py3-none-any.whl.metadata (4.2 kB)
+Collecting semantic-version~=2.0 (from gradio)
+  Using cached semantic_version-2.10.0-py2.py3-none-any.whl.metadata (9.7 kB)
+Collecting starlette<1.0,>=0.40.0 (from gradio)
+  Using cached starlette-0.52.1-py3-none-any.whl.metadata (6.3 kB)
+Collecting tomlkit<0.14.0,>=0.12.0 (from gradio)
+  Downloading tomlkit-0.13.3-py3-none-any.whl.metadata (2.8 kB)
+Collecting typer<1.0,>=0.12 (from gradio)
+  Using cached typer-0.24.1-py3-none-any.whl.metadata (16 kB)
+Requirement already satisfied: typing-extensions~=4.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from gradio) (4.15.0)
+Collecting uvicorn>=0.14.0 (from gradio)
+  Using cached uvicorn-0.41.0-py3-none-any.whl.metadata (6.7 kB)
+Collecting fsspec (from gradio-client==2.3.0->gradio)
+  Using cached fsspec-2026.2.0-py3-none-any.whl.metadata (10 kB)
+Requirement already satisfied: idna>=2.8 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from anyio<5.0,>=3.0->gradio) (3.11)
+Requirement already satisfied: typing-inspection>=0.4.2 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from fastapi<1.0,>=0.115.2->gradio) (0.4.2)
+Collecting annotated-doc>=0.0.2 (from fastapi<1.0,>=0.115.2->gradio)
+  Using cached annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+Requirement already satisfied: certifi in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from httpx<1.0,>=0.24.1->gradio) (2026.2.25)
+Requirement already satisfied: httpcore==1.* in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from httpx<1.0,>=0.24.1->gradio) (1.0.9)
+Requirement already satisfied: h11>=0.16 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from httpcore==1.*->httpx<1.0,>=0.24.1->gradio) (0.16.0)
+Collecting filelock>=3.10.0 (from huggingface-hub<2.0,>=0.33.5->gradio)
+  Downloading filelock-3.25.2-py3-none-any.whl.metadata (2.0 kB)
+Collecting hf-xet<2.0.0,>=1.3.2 (from huggingface-hub<2.0,>=0.33.5->gradio)
+  Downloading hf_xet-1.4.0-cp37-abi3-win_amd64.whl.metadata (4.9 kB)
+Requirement already satisfied: tqdm>=4.42.1 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from huggingface-hub<2.0,>=0.33.5->gradio) (4.67.3)
+Requirement already satisfied: python-dateutil>=2.8.2 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from pandas<4.0,>=1.0->gradio) (2.9.0.post0)
+Requirement already satisfied: tzdata in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from pandas<4.0,>=1.0->gradio) (2025.3)
+Requirement already satisfied: annotated-types>=0.6.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from pydantic<=3.0,>=2.0->gradio) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.5 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from pydantic<=3.0,>=2.0->gradio) (2.41.5)
+Collecting click>=8.2.1 (from typer<1.0,>=0.12->gradio)
+  Using cached click-8.3.1-py3-none-any.whl.metadata (2.6 kB)
+Collecting shellingham>=1.3.0 (from typer<1.0,>=0.12->gradio)
+  Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting rich>=12.3.0 (from typer<1.0,>=0.12->gradio)
+  Using cached rich-14.3.3-py3-none-any.whl.metadata (18 kB)
+Requirement already satisfied: colorama in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from click>=8.2.1->typer<1.0,>=0.12->gradio) (0.4.6)
+Requirement already satisfied: six>=1.5 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from python-dateutil>=2.8.2->pandas<4.0,>=1.0->gradio) (1.17.0)
+Collecting markdown-it-py>=2.2.0 (from rich>=12.3.0->typer<1.0,>=0.12->gradio)
+  Using cached markdown_it_py-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in c:\users\yogan\documents\jupyternotebook_ironhack\bootcamp\week_08_03_final_project\final-project---youtube-engineering-chatbot\venv\lib\site-packages (from rich>=12.3.0->typer<1.0,>=0.12->gradio) (2.19.2)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=12.3.0->typer<1.0,>=0.12->gradio)
+  Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Downloading gradio-6.9.0-py3-none-any.whl (42.9 MB)
+   ---------------------------------------- 0.0/42.9 MB ? eta -:--:--   ---------------------------------------- 0.0/42.9 MB ? eta -:--:--   ---------------------------------------- 0.0/42.9 MB ? eta -:--:--   ---------------------------------------- 0.3/42.9 MB ? eta -:--:--    --------------------------------------- 0.8/42.9 MB 2.0 MB/s eta 0:00:22   - -------------------------------------- 1.8/42.9 MB 3.2 MB/s eta 0:00:13   --- ------------------------------------ 3.9/42.9 MB 5.3 MB/s eta 0:00:08   ---- ----------------------------------- 4.7/42.9 MB 5.8 MB/s eta 0:00:07   ---- ----------------------------------- 5.2/42.9 MB 4.8 MB/s eta 0:00:08   ----- ---------------------------------- 5.8/42.9 MB 4.5 MB/s eta 0:00:09   ------- -------------------------------- 7.6/42.9 MB 4.7 MB/s eta 0:00:08   ------- -------------------------------- 8.1/42.9 MB 4.9 MB/s eta 0:00:08   ----------- ---------------------------- 12.1/42.9 MB 6.0 MB/s eta 0:00:06   ------------- -------------------------- 14.7/42.9 MB 6.6 MB/s eta 0:00:05   --------------- ------------------------ 17.0/42.9 MB 7.0 MB/s eta 0:00:04   ------------------ --------------------- 19.4/42.9 MB 7.3 MB/s eta 0:00:04   -------------------- ------------------- 21.8/42.9 MB 7.6 MB/s eta 0:00:03   ---------------------- ----------------- 24.4/42.9 MB 7.9 MB/s eta 0:00:03   ------------------------ --------------- 26.7/42.9 MB 8.1 MB/s eta 0:00:02   --------------------------- ------------ 29.1/42.9 MB 8.3 MB/s eta 0:00:02   ----------------------------- ---------- 31.5/42.9 MB 8.5 MB/s eta 0:00:02   ------------------------------- -------- 33.8/42.9 MB 8.7 MB/s eta 0:00:02   --------------------------------- ------ 36.2/42.9 MB 8.8 MB/s eta 0:00:01   ----------------------------------- ---- 38.5/42.9 MB 8.9 MB/s eta 0:00:01   -------------------------------------- - 41.2/42.9 MB 9.0 MB/s eta 0:00:01   ---------------------------------------  42.7/42.9 MB 9.1 MB/s eta 0:00:01   ---------------------------------------- 42.9/42.9 MB 8.9 MB/s eta 0:00:00
+Downloading gradio_client-2.3.0-py3-none-any.whl (58 kB)
+Downloading aiofiles-24.1.0-py3-none-any.whl (15 kB)
+Downloading brotli-1.2.0-cp312-cp312-win_amd64.whl (369 kB)
+Using cached fastapi-0.135.1-py3-none-any.whl (116 kB)
+Downloading groovy-0.1.2-py3-none-any.whl (14 kB)
+Using cached huggingface_hub-1.6.0-py3-none-any.whl (612 kB)
+Using cached python_multipart-0.0.22-py3-none-any.whl (24 kB)
+Downloading pytz-2026.1.post1-py2.py3-none-any.whl (510 kB)
+Downloading safehttpx-0.1.7-py3-none-any.whl (9.0 kB)
+Using cached semantic_version-2.10.0-py2.py3-none-any.whl (15 kB)
+Using cached starlette-0.52.1-py3-none-any.whl (74 kB)
+Downloading tomlkit-0.13.3-py3-none-any.whl (38 kB)
+Using cached typer-0.24.1-py3-none-any.whl (56 kB)
+Using cached uvicorn-0.41.0-py3-none-any.whl (68 kB)
+Using cached ffmpy-1.0.0-py3-none-any.whl (5.6 kB)
+Using cached pydub-0.25.1-py2.py3-none-any.whl (32 kB)
+Using cached annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+Using cached click-8.3.1-py3-none-any.whl (108 kB)
+Downloading filelock-3.25.2-py3-none-any.whl (26 kB)
+Downloading fsspec-2026.2.0-py3-none-any.whl (202 kB)
+Downloading hf_xet-1.4.0-cp37-abi3-win_amd64.whl (3.7 MB)
+   ---------------------------------------- 0.0/3.7 MB ? eta -:--:--   ---------------------- ----------------- 2.1/3.7 MB 11.7 MB/s eta 0:00:01   ---------------------------------------- 3.7/3.7 MB 10.9 MB/s eta 0:00:00
+Using cached rich-14.3.3-py3-none-any.whl (310 kB)
+Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Using cached markdown_it_py-4.0.0-py3-none-any.whl (87 kB)
+Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Installing collected packages: pytz, pydub, brotli, tomlkit, shellingham, semantic-version, python-multipart, mdurl, hf-xet, groovy, fsspec, filelock, ffmpy, click, annotated-doc, aiofiles, uvicorn, starlette, markdown-it-py, safehttpx, rich, fastapi, typer, huggingface-hub, gradio-client, gradio
+Successfully installed aiofiles-24.1.0 annotated-doc-0.0.4 brotli-1.2.0 click-8.3.1 fastapi-0.135.1 ffmpy-1.0.0 filelock-3.25.2 fsspec-2026.2.0 gradio-6.9.0 gradio-client-2.3.0 groovy-0.1.2 hf-xet-1.4.0 huggingface-hub-1.6.0 markdown-it-py-4.0.0 mdurl-0.1.2 pydub-0.25.1 python-multipart-0.0.22 pytz-2026.1.post1 rich-14.3.3 safehttpx-0.1.7 semantic-version-2.10.0 shellingham-1.5.4 starlette-0.52.1 tomlkit-0.13.3 typer-0.24.1 uvicorn-0.41.0

@@ -1,31 +1,24 @@
 {
-  "created_at": "2026-03-10T17:11:57.584527",
+  "created_at": "2026-03-12T16:14:18.946536",
   "chat_model": "gpt-4o-mini",
   "embedding_model": "text-embedding-3-small",
   "index_name": "youtube-rag-mechanical-engineering",
   "namespace": "efficient-engineer-v3",
-  "top_k": 3,
+  "top_k": 5,
   "num_tools": 3,
   "tool_names": [
     "search_transcripts",
     "find_videos",
     "get_video_info"
   ],
-  "agent_builder": "create_tool_calling_agent",
-  "entrypoint_function": "chat_with_agent",
-  "conversation_mode": "history_reconstruction",
+  "agent_builder": "create_openai_functions_agent",
+  "entrypoint_function": "ask_agent",
   "langsmith_project": "youtube-rag-engineering-chatbot",
-  "evaluation_success_rate": "100.0%",
   "package_versions": {
     "langchain": "0.2.16",
     "langchain-openai": "0.1.23",
     "langchain-pinecone": "0.1.3",
+    "langgraph": "0.2.16",
     "pinecone": "7.3.0"
-  },
-  "cost_optimizations": [
-    "Using gpt-4o-mini instead of gpt-4o (15x cheaper)",
-    "Reusing agent executor across evaluations",
-    "Reduced TOP_K from 5 to 3",
-    "Max iterations set to 3 to prevent runaway loops"
-  ]
+  }
 }
