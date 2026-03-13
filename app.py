@@ -308,9 +308,9 @@ _last_queries: dict = {}   # stores query per session for "Learn more" button
 
 def chat_with_agent(
     message: str,
-    history: List[Tuple[str, str]],
+    history: List[dict],
     request: gr.Request,
-) -> Tuple[str, List]:
+) -> Tuple[str, List[dict]]:
     """Run the agent. Returns (cleared_input, updated_history). No thumbnails yet."""
     session_key = getattr(request, "session_hash", "default")
 
@@ -334,16 +334,25 @@ def chat_with_agent(
     # Save query so "Learn more" can use it without re-asking the user
     _last_queries[session_key] = message + " " + answer[:200]
 
-    return "", history + [(message, answer)]
+    return "", history + [
+        {"role": "user",      "content": message},
+        {"role": "assistant", "content": answer},
+    ]
 
 
-def show_videos(history: List, request: gr.Request) -> str:
+def show_videos(history: List[dict], request: gr.Request) -> str:
     """Fetch and render thumbnails for the most recent question."""
     if not history:
         return "<p style='color:#94a3b8; font-size:13px;'>Ask a question first!</p>"
 
     session_key = getattr(request, "session_hash", "default")
-    query = _last_queries.get(session_key) or history[-1][0]
+    # Find last user message from history
+    last_user_msg = ""
+    for msg in reversed(history):
+        if msg.get("role") == "user":
+            last_user_msg = msg.get("content", "")
+            break
+    query = _last_queries.get(session_key) or last_user_msg
 
     videos = get_video_suggestions(query, n=4)
     return build_thumbnail_html(videos)
@@ -355,17 +364,43 @@ def show_videos(history: List, request: gr.Request) -> str:
 CSS = """
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@400;700&display=swap');
 
-/* ── Variables ── */
-:root {
+/* ═══════════════════════════════════════════════════════════
+   DARK THEME  (default — Gradio dark mode or System=dark)
+   ═══════════════════════════════════════════════════════════ */
+:root,
+.dark {
     --bg:      #0f0f1e;
     --surf:    #161628;
     --surf2:   #1e1e3a;
     --border:  #2a2a4e;
-    --accent:  #6366f1;
-    --accent2: #818cf8;
+    --accent:  #818cf8;
+    --accent2: #a5b4fc;
     --text:    #e2e8f0;
     --muted:   #94a3b8;
     --green:   #34d399;
+    --btn-txt: #c4c4e8;
+    --btn-bg:  rgba(255,255,255,0.06);
+    --btn-bdr: #3a3a6a;
+    --r:       12px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT THEME  (Gradio light mode or System=light)
+   ═══════════════════════════════════════════════════════════ */
+.light,
+body:not(.dark) {
+    --bg:      #f0f2ff;
+    --surf:    #ffffff;
+    --surf2:   #eef0ff;
+    --border:  #c7c9e8;
+    --accent:  #4f46e5;
+    --accent2: #4338ca;
+    --text:    #1e1b4b;
+    --muted:   #4b5563;
+    --green:   #059669;
+    --btn-txt: #3730a3;
+    --btn-bg:  rgba(79,70,229,0.08);
+    --btn-bdr: #a5b4fc;
     --r:       12px;
 }
 
@@ -379,7 +414,6 @@ body,
     font-family: 'DM Sans', sans-serif !important;
 }
 
-/* Force text colour everywhere it might be missed */
 .gradio-container,
 .gradio-container p,
 .gradio-container span,
@@ -394,11 +428,11 @@ body,
     font-family: 'Space Mono', monospace !important;
     font-size: 1.6rem;
     font-weight: 700;
-    color: #ffffff !important;
+    color: var(--accent2) !important;
     letter-spacing: -.5px;
     margin: 0 0 5px;
 }
-.app-header h1 span { color: var(--accent2) !important; }
+.app-header h1 .rag-word { color: var(--accent) !important; }
 .app-header p { color: var(--muted) !important; font-size: .87rem; margin: 0; }
 .status-badge {
     display: inline-flex; align-items: center; gap: 7px;
@@ -415,13 +449,13 @@ body,
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-/* ── Chatbot ── */
+/* ── Chatbot container ── */
 #chatbot {
     background-color: var(--surf) !important;
     border: 1px solid var(--border) !important;
     border-radius: var(--r) !important;
 }
-/* user bubble */
+/* user bubble — always indigo gradient, white text */
 #chatbot .message.user {
     background: linear-gradient(135deg, #4338ca, #6366f1) !important;
     color: #ffffff !important;
@@ -429,6 +463,7 @@ body,
     padding: 11px 15px !important;
     font-size: .9rem !important;
 }
+#chatbot .message.user * { color: #ffffff !important; }
 /* bot bubble */
 #chatbot .message.bot {
     background-color: var(--surf2) !important;
@@ -442,33 +477,40 @@ body,
 #chatbot .message.bot p,
 #chatbot .message.bot li,
 #chatbot .message.bot span { color: var(--text) !important; }
-#chatbot .message.bot a    { color: var(--accent2) !important; }
-#chatbot .message.bot strong { color: #ffffff !important; }
+#chatbot .message.bot a    { color: var(--accent) !important; }
+#chatbot .message.bot strong { color: var(--accent2) !important; font-weight: 700 !important; }
 #chatbot .message.bot h1,
 #chatbot .message.bot h2,
 #chatbot .message.bot h3,
 #chatbot .message.bot h4,
 #chatbot .message.bot h5,
 #chatbot .message.bot h6 {
-    color: #ffffff !important;
+    color: var(--accent2) !important;
     font-weight: 700 !important;
     margin: 10px 0 4px !important;
 }
 #chatbot .message.bot code {
-    background: rgba(99,102,241,.15) !important;
-    color: #c4b5fd !important;
+    background: rgba(99,102,241,.12) !important;
+    color: var(--accent) !important;
     padding: 1px 5px; border-radius: 4px;
 }
 #chatbot .message.bot pre {
-    background: rgba(0,0,0,.3) !important;
+    background: var(--surf) !important;
     border: 1px solid var(--border) !important;
     border-radius: 6px !important;
     padding: 10px 14px !important;
 }
 #chatbot .message.bot pre code {
     background: transparent !important;
-    color: #c4b5fd !important;
+    color: var(--accent) !important;
 }
+#chatbot .message.pending {
+    background-color: var(--surf2) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--muted) !important;
+}
+#chatbot .message.pending span,
+#chatbot .message.pending p { color: var(--muted) !important; }
 
 /* ── Text input ── */
 #msg-input textarea {
@@ -487,7 +529,7 @@ body,
     box-shadow: 0 0 0 3px rgba(99,102,241,.15) !important;
     outline: none !important;
 }
-#msg-input textarea::placeholder { color: #a0a0cc !important; }
+#msg-input textarea::placeholder { color: var(--muted) !important; }
 
 /* ── Send button ── */
 #send-btn {
@@ -503,10 +545,13 @@ body,
     min-height: 50px !important;
 }
 #send-btn:hover { opacity: .88 !important; transform: translateY(-1px) !important; }
+/* ensure Send label is always white */
+#send-btn span,
+#send-btn * { color: #ffffff !important; }
 
 /* ── Learn more button ── */
 #learn-btn button {
-    background: rgba(99,102,241,.12) !important;
+    background: rgba(99,102,241,.1) !important;
     border: 1px solid rgba(99,102,241,.4) !important;
     border-radius: 10px !important;
     color: var(--accent2) !important;
@@ -521,21 +566,31 @@ body,
     border-color: var(--accent) !important;
     transform: translateY(-1px) !important;
 }
+#learn-btn button * { color: var(--accent2) !important; }
 
-/* ── Action buttons (clear / retry / hide) ── */
+/* ── Action buttons (🗑 Clear / ↺ Retry / ✕ Hide) ── */
+/* FIX: was #555580 (nearly invisible on dark). Now uses --btn-txt which is
+   light on dark theme and dark-indigo on light theme — always readable. */
 .action-btn button {
-    background: rgba(255,255,255,0.04) !important;
-    border: 1px solid var(--border) !important;
-    color: #555580 !important;
+    background: var(--btn-bg) !important;
+    border: 1px solid var(--btn-bdr) !important;
+    color: var(--btn-txt) !important;
     border-radius: 8px !important;
-    font-size: .8rem !important;
+    font-size: .82rem !important;
+    font-weight: 600 !important;
     padding: 6px 14px !important;
     cursor: pointer !important;
-    transition: border-color .2s, color .2s !important;
+    transition: border-color .2s, color .2s, background .2s !important;
 }
 .action-btn button:hover {
+    background: rgba(99,102,241,.15) !important;
     border-color: var(--accent) !important;
     color: var(--accent2) !important;
+}
+/* guarantee the emoji/text inside is never white-on-white or dark-on-dark */
+.action-btn button span,
+.action-btn button * {
+    color: inherit !important;
 }
 
 /* ── Thumbnail panel ── */
@@ -548,8 +603,8 @@ body,
 
 /* ── Example chips ── */
 .example-chip button {
-    background: rgba(99,102,241,.08) !important;
-    border: 1px solid rgba(99,102,241,.22) !important;
+    background: var(--btn-bg) !important;
+    border: 1px solid var(--btn-bdr) !important;
     color: var(--accent2) !important;
     border-radius: 99px !important;
     padding: 5px 14px !important;
@@ -559,7 +614,8 @@ body,
     transition: background .18s !important;
     white-space: nowrap !important;
 }
-.example-chip button:hover { background: rgba(99,102,241,.2) !important; }
+.example-chip button:hover { background: rgba(99,102,241,.18) !important; }
+.example-chip button * { color: var(--accent2) !important; }
 
 /* ── Section label ── */
 .section-label {
@@ -568,82 +624,55 @@ body,
     color: var(--muted) !important; margin-bottom: 6px;
 }
 
-/* ── Page-level processing badge (top-right corner of the page) ── */
+/* ── Processing / loading badges ── */
 .progress-text,
 footer .progress-text,
 .toast-wrap,
 [class*="progress-text"],
 [class*="toast"],
-.svelte-1yrwa15,
-body > .wrap > .gap > [class*="progress"],
-gradio-app > div > [class*="progress"] {
-    background: #2d2b55 !important;
-    color: #c4b5fd !important;
-    border: 1px solid #5a5aaa !important;
+.svelte-1yrwa15 {
+    background: var(--surf2) !important;
+    color: var(--accent2) !important;
+    border: 1px solid var(--border) !important;
     border-radius: 6px !important;
     font-size: 11px !important;
     font-weight: 600 !important;
 }
-body > gradio-app [class*="progress-bar-wrap"],
 [class*="progress-bar-wrap"] {
-    background: #1a1a35 !important;
-    border: 1px solid #3a3a6e !important;
+    background: var(--surf) !important;
+    border: 1px solid var(--border) !important;
     border-radius: 6px !important;
 }
-
-/* ── Processing / loading indicator ── */
-
-/* The "processing | 11.7s" badge Gradio injects inside the textbox */
 #msg-input .wrap,
 #msg-input [class*="wrap"],
-#msg-input .eta-bar,
 #msg-input [class*="eta"],
 #msg-input [class*="status"],
 #msg-input [class*="timer"],
 #msg-input [class*="loading"],
-#msg-input [class*="generating"],
 .generating,
 [class*="eta-bar"],
 [class*="timer"] {
-    background: #2d2b55 !important;
-    color: #c4b5fd !important;
-    border: 1px solid #5a5aaa !important;
+    background: var(--surf2) !important;
+    color: var(--accent2) !important;
+    border: 1px solid var(--border) !important;
     border-radius: 6px !important;
     font-size: 11px !important;
     font-weight: 600 !important;
     padding: 2px 8px !important;
 }
-
-/* Make sure the text inside is readable */
-#msg-input .wrap *,
 #msg-input [class*="eta"] *,
 #msg-input [class*="status"] *,
-.generating * {
-    color: #c4b5fd !important;
-}
+.generating * { color: var(--accent2) !important; }
 
-/* Animated dots */
+/* ── Animated dots ── */
 .dot-flashing,
 .dot-flashing::before,
-.dot-flashing::after {
-    background-color: #818cf8 !important;
-}
-
-/* Chatbot pending/thinking bubble */
-#chatbot .message.pending {
-    background-color: #252545 !important;
-    border: 1px solid #3a3a6e !important;
-    color: #c4b5fd !important;
-}
-#chatbot .message.pending span,
-#chatbot .message.pending p {
-    color: #c4b5fd !important;
-}
+.dot-flashing::after { background-color: var(--accent2) !important; }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #2e2e52; border-radius: 99px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 """
 
 EXAMPLES = [
@@ -662,19 +691,19 @@ def build_ui():
         gr.HTML(f"""
         <style>
         .progress-text {{
-            background: #2d2b55 !important;
-            color: #c4b5fd !important;
-            border: 1px solid #5a5aaa !important;
+            background: var(--surf2) !important;
+            color: var(--accent2) !important;
+            border: 1px solid var(--border) !important;
             border-radius: 6px !important;
             font-size: 11px !important;
             font-weight: 600 !important;
             padding: 2px 10px !important;
         }}
-        .progress-text * {{ color: #c4b5fd !important; }}
+        .progress-text * {{ color: var(--accent2) !important; }}
         [class*="progress-bar-wrap"],
         [class*="progressbar"] {{
-            background: #1a1a38 !important;
-            border: 1px solid #3a3a6e !important;
+            background: var(--surf) !important;
+            border: 1px solid var(--border) !important;
             border-radius: 8px !important;
         }}
         </style>
@@ -688,13 +717,32 @@ def build_ui():
         </div>
         """)
 
-        # ── Chat ─────────────────────────────────────────────────────────────
+        # Force dark theme as default on page load
+        gr.HTML("""
+        <script>
+        (function() {
+            var applyDark = function() {
+                document.body.classList.add('dark');
+                document.body.classList.remove('light');
+                var root = document.querySelector('gradio-app');
+                if (root) {
+                    root.classList.add('dark');
+                    root.classList.remove('light');
+                }
+            };
+            applyDark();
+            // Re-apply after Gradio hydrates
+            setTimeout(applyDark, 100);
+            setTimeout(applyDark, 500);
+        })();
+        </script>
+        """)
         chatbot = gr.Chatbot(
             elem_id="chatbot",
             height=460,
             show_label=False,
-            bubble_full_width=False,
             render_markdown=True,
+            type="messages",
         )
 
         # ── Input ─────────────────────────────────────────────────────────────
@@ -808,8 +856,17 @@ def build_ui():
         def on_retry(history, request: gr.Request):
             if not history:
                 return history
-            last_q = history[-1][0]
-            _, updated = chat_with_agent(last_q, history[:-1], request)
+            # Find last user message
+            last_q = ""
+            for msg in reversed(history):
+                if msg.get("role") == "user":
+                    last_q = msg.get("content", "")
+                    break
+            if not last_q:
+                return history
+            # Remove the last exchange (last user + last assistant message)
+            trimmed = history[:-2] if len(history) >= 2 else []
+            _, updated = chat_with_agent(last_q, trimmed, request)
             return updated
 
         retry_btn.click(
@@ -835,7 +892,7 @@ if __name__ == "__main__":
 
     demo = build_ui()
     demo.launch(
-        server_name="0.0.0.0",
+        server_name="127.0.0.1",
         server_port=7860,
         share=False,
         show_error=True,
